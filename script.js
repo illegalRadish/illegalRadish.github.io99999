@@ -87,10 +87,21 @@ DOM.form.addEventListener('submit', sendMessage);
 
 function sendMessage() {
   const value = DOM.input.value;
+  const bool = false;
   if (value === '') {
     return;
   }
+  if (value.startsWith("/");){
+    bool = true;
+  }
   DOM.input.value = '';
+  if(bool){
+    drone.publish({
+      room: 'observable-room',
+      message: "img" + value,
+    });
+    return;
+  }
   drone.publish({
     room: 'observable-room',
     message: value,
